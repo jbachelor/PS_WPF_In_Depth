@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Customers\CustomerListViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\CustomersRepository.cs" />
     <Compile Include="Services\ICustomersRepository.cs" />
     <Compile Include="Services\IOrdersRepository.cs" />

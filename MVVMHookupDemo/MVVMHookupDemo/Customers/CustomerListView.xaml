@@ -9,28 +9,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              local:ViewModelLocator.AutoWireViewModel="True">
-    <!--<UserControl.DataContext>
-        <custVM:CustomerListViewModel />
-    </UserControl.DataContext>-->
+    <UserControl.InputBindings>
+        <KeyBinding Key="D"
+                    Modifiers="Ctrl"
+                    Command="{Binding DeleteCommand}" />
+    </UserControl.InputBindings>
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type data:Customer}">
-            <StackPanel>
-                <TextBlock Text="{Binding FirstName}" />
-                <TextBlock Text="{Binding LastName}" />
-                <TextBlock Text="{Binding Phone}" />
-            </StackPanel>
+        <DataTemplate x:Key="CustomerTemplate"
+                      DataType="{x:Type data:Customer}">
+            <Border BorderThickness="2"
+                    BorderBrush="Blue">
+                <StackPanel>
+                    <TextBlock Text="{Binding FirstName}" />
+                    <TextBlock Text="{Binding LastName}" />
+                    <TextBlock Text="{Binding Phone}" />
+                </StackPanel>
+            </Border>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
+        <Button Content="Delete"
+                Command="{Binding DeleteCommand}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="75" />
+
         <DataGrid x:Name="customerDataGrid"
                   AutoGenerateColumns="False"
-                  EnableRowVirtualization="True"
                   ItemsSource="{Binding Customers}"
-                  RowDetailsVisibilityMode="VisibleWhenSelected">
+                  SelectedItem="{Binding SelectedCustomer}"
+                  Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="firstNameColumn"
                                     Binding="{Binding FirstName}"
@@ -46,7 +59,8 @@
                                     Width="SizeToHeader" />
             </DataGrid.Columns>
         </DataGrid>
-        <ListBox Grid.Row="1"
-                 ItemsSource="{Binding Customers}"/>
+        <ListBox Grid.Row="2"
+                 ItemsSource="{Binding Customers}"
+                 ItemTemplate="{StaticResource CustomerTemplate}"/>
     </Grid>
 </UserControl>

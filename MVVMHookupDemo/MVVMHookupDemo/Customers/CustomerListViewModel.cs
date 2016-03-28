@@ -1,30 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Zza.Data;
 using ZzaDashboard.Services;
 
 namespace MVVMHookupDemo.Customers
 {
 
-    public class CustomerListViewModel
+    public class CustomerListViewModel : INotifyPropertyChanged
     {
         #region Fields
 
         private ICustomersRepository _repo = new CustomersRepository();
-        private ObservableCollection<Customer> _customers;
 
         #endregion Fields
 
-        #region Properties
+        #region Constructors
+
+        public CustomerListViewModel()
+        {
+            DeleteCommand = new RelayCommand(OnDelete, CanDelete);
+            ChangeCustomerCommand = new RelayCommand(OnChangeCustomer, CanChangeCustomer);
+        }
+
+        #endregion Constructors
+
+        #region Commands
 
         public RelayCommand DeleteCommand { get; private set; }
+        public RelayCommand ChangeCustomerCommand { get; private set; }
+
+        private bool CanDelete()
+        {
+            return SelectedCustomer != null;
+        }
+
+        private void OnDelete()
+        {
+            Customers.Remove(SelectedCustomer);
+        }
+
+        private bool CanChangeCustomer()
+        {
+            return SelectedCustomer != null;
+        }
+
+        private void OnChangeCustomer()
+        {
+            SelectedCustomer.FirstName = "Changed in background";
+        }
+
+        #endregion Commands
+
+        #region Events
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { }; // The anonymous delegate will not be used, but prevents risk of a null ref exception.
+
+        #endregion Events
+
+        #region Properties
         
+        private ObservableCollection<Customer> _customers;
         public ObservableCollection<Customer> Customers
         {
             get
@@ -34,7 +69,10 @@ namespace MVVMHookupDemo.Customers
             set
             {
                 if (_customers != value)
+                {
                     _customers = value;
+                    PropertyChanged(this, new PropertyChangedEventArgs("Customers"));
+                }
             }
         }
 
@@ -51,33 +89,20 @@ namespace MVVMHookupDemo.Customers
                 {
                     _selectedCustomer = value;
                     DeleteCommand.RaiseCanExecuteChanged();
+                    ChangeCustomerCommand.RaiseCanExecuteChanged();
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedCustomer"));
                 }
             }
         }
 
         #endregion Properties
-
-        #region Constructors
-
-        public CustomerListViewModel()
+        
+        public async void LoadCustomersAsync()
         {
             if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
                 return;
 
-            Customers = new ObservableCollection<Customer>(_repo.GetCustomersAsync().Result);
-            DeleteCommand = new RelayCommand(OnDelete, CanDelete);
-        }
-
-        #endregion Constructors
-
-        private bool CanDelete()
-        {
-            return SelectedCustomer != null;
-        }
-
-        private void OnDelete()
-        {
-            Customers.Remove(SelectedCustomer);
+            Customers = new ObservableCollection<Customer>(await _repo.GetCustomersAsync());
         }
     }
 }

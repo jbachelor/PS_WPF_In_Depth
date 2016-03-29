@@ -82,6 +82,7 @@
     <Compile Include="Services\ICustomersRepository.cs" />
     <Compile Include="Services\IOrdersRepository.cs" />
     <Compile Include="Services\OrdersRepository.cs" />
+    <Compile Include="ShowNotificationMessageBehavior.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Page Include="Customers\CustomerDetailView.xaml">
       <SubType>Designer</SubType>

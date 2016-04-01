@@ -51,10 +51,7 @@ namespace MVVMHookupDemo
         
         public void Execute(object parameter)
         {
-            if(_TargetExecuteMethod != null)
-            {
-                _TargetExecuteMethod();
-            }
+            _TargetExecuteMethod?.Invoke();
         }
 
         #endregion ICommand Members

@@ -14,12 +14,19 @@ namespace ZzaDesktop.Customers
         public CustomerListViewModel()
         {
             PlaceOrderCommand = new RelayCommand<Customer>(OnPlaceOrder);
+            AddCustomerCommand = new RelayCommand(OnAddCustomer);
+            EditCustomerCommand = new RelayCommand<Customer>(OnEditCustomer);
         }
 
         private ICustomerRepository repo = new CustomerRepository(); // Initial, crude implementation... Should use DI (coming in a future module of this tutorial).
 
         public RelayCommand<Customer> PlaceOrderCommand { get; private set; }
+        public RelayCommand AddCustomerCommand { get; private set; }
+        public RelayCommand<Customer> EditCustomerCommand { get; private set; }
+
         public event Action<Guid> PlaceOrderRequested = delegate { };
+        public event Action<Customer> AddCustomerRequested = delegate { };
+        public event Action<Customer> EditCustomerRequested = delegate { };
 
         private ObservableCollection<Customer> customers;
         public ObservableCollection<Customer> Customers
@@ -38,7 +45,16 @@ namespace ZzaDesktop.Customers
         {
             PlaceOrderRequested(customer.Id);
         }
+        
+        private void OnAddCustomer()
+        {
+            AddCustomerRequested(new Customer { Id = Guid.NewGuid() });
+        }
 
+        private void OnEditCustomer(Customer customer)
+        {
+            EditCustomerRequested(customer);
+        }
 
 
     }

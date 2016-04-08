@@ -8,5 +8,12 @@ namespace ZzaDesktop.Orders
 {
     public class OrderViewModel : BindableBase
     {
+        private Guid customerId;
+
+        public Guid CustomerId
+        {
+            get { return customerId; }
+            set { SetProperty(ref customerId, value); }
+        }
     }
 }

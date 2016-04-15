@@ -15,23 +15,24 @@ namespace ZzaDesktop
         public MainWindowViewModel()
         {
             NavCommand = new RelayCommand<string>(OnNav);
-            customerListViewModel.PlaceOrderRequested += NavToOrder;
-            customerListViewModel.AddCustomerRequested += NavToAddCustomer;
-            customerListViewModel.EditCustomerRequested += NavToEditCustomer;
+            _customerListViewModel.PlaceOrderRequested += NavToOrder;
+            _customerListViewModel.AddCustomerRequested += NavToAddCustomer;
+            _customerListViewModel.EditCustomerRequested += NavToEditCustomer;
+            _addEditViewModel.Done += NavToCustomerList;
         }
-
-        private CustomerListViewModel customerListViewModel = new CustomerListViewModel();
-        private OrderPrepViewModel orderPrepViewModel = new OrderPrepViewModel();
-        private OrderViewModel orderViewModel = new OrderViewModel();
-        private AddEditCustomerViewModel addEditViewModel = new AddEditCustomerViewModel();
+        
+        private CustomerListViewModel _customerListViewModel = new CustomerListViewModel();
+        private OrderPrepViewModel _orderPrepViewModel = new OrderPrepViewModel();
+        private OrderViewModel _orderViewModel = new OrderViewModel();
+        private AddEditCustomerViewModel _addEditViewModel = new AddEditCustomerViewModel();
 
         public RelayCommand<string> NavCommand { get; private set; }
 
-        private BindableBase currentViewModel;
+        private BindableBase _currentViewModel;
         public BindableBase CurrentViewModel
         {
-            get { return currentViewModel; }
-            set { SetProperty(ref currentViewModel, value); }
+            get { return _currentViewModel; }
+            set { SetProperty(ref _currentViewModel, value); }
         }
         
         private void OnNav(string destination)
@@ -39,33 +40,38 @@ namespace ZzaDesktop
             switch (destination)
             {
                 case "orderPrep":
-                    CurrentViewModel = orderPrepViewModel;
+                    CurrentViewModel = _orderPrepViewModel;
                     break;
                 case "customers":
                 default:
-                    CurrentViewModel = customerListViewModel;
+                    CurrentViewModel = _customerListViewModel;
                     break;
             }
         }
         
         private void NavToOrder(Guid customerId)
         {
-            orderViewModel.CustomerId = customerId;
-            CurrentViewModel = orderViewModel;
+            _orderViewModel.CustomerId = customerId;
+            CurrentViewModel = _orderViewModel;
         }
 
         private void NavToEditCustomer(Customer customer)
         {
-            addEditViewModel.EditMode = true;
-            addEditViewModel.SetCustomer(customer);
-            CurrentViewModel = addEditViewModel;
+            _addEditViewModel.EditMode = true;
+            _addEditViewModel.SetCustomer(customer);
+            CurrentViewModel = _addEditViewModel;
         }
 
         private void NavToAddCustomer(Customer customer)
         {
-            addEditViewModel.EditMode = false;
-            addEditViewModel.SetCustomer(customer);
-            currentViewModel = addEditViewModel;
+            _addEditViewModel.EditMode = false;
+            _addEditViewModel.SetCustomer(customer);
+            CurrentViewModel = _addEditViewModel;
+        }
+
+        private void NavToCustomerList()
+        {
+            CurrentViewModel = _customerListViewModel;
         }
 
     }

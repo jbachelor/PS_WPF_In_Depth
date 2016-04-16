@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zza.Data;
+using ZzaDesktop.Services;
 
 namespace ZzaDesktop.Customers
 {
     public class AddEditCustomerViewModel : BindableBase
     {
-        public AddEditCustomerViewModel()
+        public AddEditCustomerViewModel(ICustomerRepository repo)
         {
+            _repo = repo;
             CancelCommand = new RelayCommand(OnCancel);
             SaveCommand = new RelayCommand(OnSave, CanSave);
         }
@@ -18,7 +21,8 @@ namespace ZzaDesktop.Customers
         #region Fields
 
         private Customer _editingCustomer = null;
-
+        private ICustomerRepository _repo;
+        
         #endregion Fields
 
         #region Commands
@@ -30,7 +34,7 @@ namespace ZzaDesktop.Customers
 
         #region Events
 
-        public event Action Done = delegate { };
+        public event Action DoneSaving = delegate { };
 
         #endregion Events
 
@@ -55,8 +59,15 @@ namespace ZzaDesktop.Customers
         public void SetCustomer(Customer customer)
         {
             _editingCustomer = customer;
+            if (Customer != null) Customer.ErrorsChanged -= RaiseCanExecuteChanged;
             Customer = new SimpleEditableCustomer();
+            Customer.ErrorsChanged += RaiseCanExecuteChanged;
             CopyCustomer(customer, Customer);
+        }
+
+        private void RaiseCanExecuteChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            SaveCommand.RaiseCanExecuteChanged();
         }
 
         private void CopyCustomer(Customer source, SimpleEditableCustomer target)
@@ -74,17 +85,32 @@ namespace ZzaDesktop.Customers
 
         private bool CanSave()
         {
-            return true;
+            return !Customer.HasErrors;
         }
 
-        private void OnSave()
+        private async void OnSave()
         {
-            Done();
+            UpdateCustomer(Customer, _editingCustomer);
+
+            if (EditMode)
+                await _repo.UpdateCustomerAsync(_editingCustomer);
+            else
+                await _repo.AddCustomerAsync(_editingCustomer);
+
+            DoneSaving();
+        }
+
+        private void UpdateCustomer(SimpleEditableCustomer source, Customer target)
+        {
+            target.FirstName = source.FirstName;
+            target.LastName = source.LastName;
+            target.Phone = source.Phone;
+            target.Email = source.Email;
         }
 
         private void OnCancel()
         {
-            Done();
+            DoneSaving();
         }
     }
 }

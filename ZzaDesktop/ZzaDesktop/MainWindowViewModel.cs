@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Practices.Unity;
 using Zza.Data;
 using ZzaDesktop.Customers;
 using ZzaDesktop.OrderPrep;
 using ZzaDesktop.Orders;
+using ZzaDesktop.Services;
 
 namespace ZzaDesktop
 {
@@ -14,17 +16,20 @@ namespace ZzaDesktop
     {
         public MainWindowViewModel()
         {
+            _customerListViewModel = ContainerHelper.Container.Resolve<CustomerListViewModel>();
+            _addEditViewModel = ContainerHelper.Container.Resolve<AddEditCustomerViewModel>();
+
             NavCommand = new RelayCommand<string>(OnNav);
             _customerListViewModel.PlaceOrderRequested += NavToOrder;
             _customerListViewModel.AddCustomerRequested += NavToAddCustomer;
             _customerListViewModel.EditCustomerRequested += NavToEditCustomer;
-            _addEditViewModel.Done += NavToCustomerList;
+            _addEditViewModel.DoneSaving += NavToCustomerList;
         }
         
-        private CustomerListViewModel _customerListViewModel = new CustomerListViewModel();
+        private CustomerListViewModel _customerListViewModel;
         private OrderPrepViewModel _orderPrepViewModel = new OrderPrepViewModel();
         private OrderViewModel _orderViewModel = new OrderViewModel();
-        private AddEditCustomerViewModel _addEditViewModel = new AddEditCustomerViewModel();
+        private AddEditCustomerViewModel _addEditViewModel;
 
         public RelayCommand<string> NavCommand { get; private set; }
 

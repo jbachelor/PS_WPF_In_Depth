@@ -54,6 +54,7 @@
                                 <main:AtLeastNCharacterValidationRule
                                        MinimumStringLength="3"
                                     LetZeroBeValid="True"/>
+                                <main:AtMostNCharacterValidationRule MaximumStringLength="6" />
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

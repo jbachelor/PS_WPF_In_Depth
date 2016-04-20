@@ -91,6 +91,7 @@
       <DependentUpon>AddEditCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Customers\AddEditCustomerViewModel.cs" />
+    <Compile Include="AtMostNCharacterValidationRule.cs" />
     <Compile Include="Customers\CustomerListView.xaml.cs">
       <DependentUpon>CustomerListView.xaml</DependentUpon>
     </Compile>

@@ -70,19 +70,6 @@ namespace ZzaDesktop.Customers
             SaveCommand.RaiseCanExecuteChanged();
         }
 
-        private void CopyCustomer(Customer source, SimpleEditableCustomer target)
-        {
-            target.Id = source.Id;
-
-            if (EditMode)
-            {
-                target.FirstName = source.FirstName;
-                target.LastName = source.LastName;
-                target.Phone = source.Phone;
-                target.Email = source.Email;
-            }
-        }
-
         private bool CanSave()
         {
             return !Customer.HasErrors;
@@ -106,6 +93,19 @@ namespace ZzaDesktop.Customers
             target.LastName = source.LastName;
             target.Phone = source.Phone;
             target.Email = source.Email;
+        }
+
+        private void CopyCustomer(Customer source, SimpleEditableCustomer target)
+        {
+            target.Id = source.Id;
+
+            if (EditMode)
+            {
+                target.FirstName = source.FirstName;
+                target.LastName = source.LastName;
+                target.Phone = source.Phone;
+                target.Email = source.Email;
+            }
         }
 
         private void OnCancel()

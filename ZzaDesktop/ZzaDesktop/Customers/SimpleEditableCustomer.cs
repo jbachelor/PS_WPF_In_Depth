@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZzaDesktop.Customers
 {
-    public class SimpleEditableCustomer : VallidatableBindableBase
+    public class SimpleEditableCustomer : ValidatableBindableBase
     {
         private Guid id;
         public Guid Id

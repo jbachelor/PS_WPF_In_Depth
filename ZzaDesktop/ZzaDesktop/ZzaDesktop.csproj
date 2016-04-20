@@ -83,6 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AtLeastNCharacterValidationRule.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="ContainerHelper.cs" />
     <Compile Include="Converters\NegatableBooleanToVisibilityConverter.cs" />

@@ -5,12 +5,10 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZzaDesktop
 {
-    public class VallidatableBindableBase : BindableBase, INotifyDataErrorInfo
+    public class ValidatableBindableBase : BindableBase, INotifyDataErrorInfo
     {
         private Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
 

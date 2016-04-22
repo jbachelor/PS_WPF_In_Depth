@@ -20,7 +20,7 @@ namespace ZzaDesktop
             string valueString = value.ToString();
 
             if (valueString.Length > MaximumStringLength)
-                return new ValidationResult(false, $"Cannot be longer than {MaximumStringLength} characters");
+                return new ValidationResult(false, $"Less than {MaximumStringLength} characters, please");
             else
                 return new ValidationResult(true, null);
         }

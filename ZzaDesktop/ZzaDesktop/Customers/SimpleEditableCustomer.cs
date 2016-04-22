@@ -47,6 +47,5 @@ namespace ZzaDesktop.Customers
             get { return email; }
             set { SetProperty(ref email, value); }
         }
-
     }
 }

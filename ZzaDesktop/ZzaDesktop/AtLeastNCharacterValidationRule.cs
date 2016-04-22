@@ -11,7 +11,6 @@ namespace ZzaDesktop
     public class AtLeastNCharacterValidationRule : ValidationRule
     {
         public int MinimumStringLength { get; set; }
-        public bool LetZeroBeValid { get; set; }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
@@ -20,8 +19,8 @@ namespace ZzaDesktop
             
             string valueString = value.ToString();
 
-            if (valueString.Length > 0 && valueString.Length < MinimumStringLength)
-                return new ValidationResult(false, $"Must be at least {MinimumStringLength} characters");
+            if (valueString.Length < MinimumStringLength)
+                return new ValidationResult(false, $"Please enter at least {MinimumStringLength} characters");
             else
                 return new ValidationResult(true, null);
         }

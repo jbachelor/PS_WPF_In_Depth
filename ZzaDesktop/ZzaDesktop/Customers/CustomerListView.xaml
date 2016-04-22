@@ -45,15 +45,12 @@
                         HorizontalAlignment="Right"
                         Grid.Column="1">
                 <Label Content="Search:" />
-                <TextBox 
-                         Width="150">
+                <TextBox Width="150">
                     <TextBox.Text>
                         <Binding Path="SearchInput"
                                  UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <main:AtLeastNCharacterValidationRule
-                                       MinimumStringLength="3"
-                                    LetZeroBeValid="True"/>
+                                <main:AtLeastNCharacterValidationRule MinimumStringLength="2" />
                                 <main:AtMostNCharacterValidationRule MaximumStringLength="6" />
                             </Binding.ValidationRules>
                         </Binding>

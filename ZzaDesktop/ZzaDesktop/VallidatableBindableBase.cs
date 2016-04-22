@@ -10,24 +10,20 @@ namespace ZzaDesktop
 {
     public class ValidatableBindableBase : BindableBase, INotifyDataErrorInfo
     {
-        private Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
+        protected Dictionary<string, List<string>> _propertyErrors = new Dictionary<string, List<string>>();
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged = delegate { };
 
         public bool HasErrors
         {
-            get
-            {
-                return _errors.Count > 0;
-            }
+            get { return _propertyErrors.Count > 0; }
         }
 
         public IEnumerable GetErrors(string propertyName)
         {
-            if (_errors.ContainsKey(propertyName))
-                return _errors[propertyName];
-            else
-                return null;
+                if (_propertyErrors.ContainsKey(propertyName))
+                    return _propertyErrors[propertyName];            
+            return null;
         }
 
         protected override void SetProperty<T>(ref T member, T val, [CallerMemberName] string propertyName = null)
@@ -45,11 +41,11 @@ namespace ZzaDesktop
 
             if (validationResults.Any())
             {
-                _errors[propertyName] = validationResults.Select(error => error.ErrorMessage).ToList();
+                _propertyErrors[propertyName] = validationResults.Select(error => error.ErrorMessage).ToList();
             }
             else
             {
-                _errors.Remove(propertyName);
+                _propertyErrors.Remove(propertyName);
             }
 
             ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));

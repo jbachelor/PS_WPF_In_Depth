@@ -17,7 +17,7 @@ namespace ZzaDesktop.Customers
         }
 
         private string firstName;
-        [Required]
+        [Required(ErrorMessage = "First name is required")]
         public string FirstName
         {
             get { return firstName; }
@@ -25,7 +25,7 @@ namespace ZzaDesktop.Customers
         }
 
         private string lastName;
-        [Required]
+        [Required(ErrorMessage = "Last name is required")]
         public string LastName
         {
             get { return lastName; }
@@ -41,7 +41,7 @@ namespace ZzaDesktop.Customers
         }
 
         private string email;
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Yeah... I'm SURE that's a legit email... NOT!")]
         public string Email
         {
             get { return email; }

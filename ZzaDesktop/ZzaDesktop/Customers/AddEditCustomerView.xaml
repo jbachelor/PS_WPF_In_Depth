@@ -53,6 +53,7 @@
                    HorizontalAlignment="Left" />
             <TextBox x:Name="firstNameTextBox"
                      Text="{Binding FirstName, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource ErrorStyle}"
                      Grid.Row="0"
                      Grid.Column="1"
                      Width="120"
@@ -68,6 +69,7 @@
                    VerticalAlignment="Center" />
             <TextBox x:Name="lastNameTextBox"
                      Text="{Binding LastName, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource ErrorStyle}"
                      Grid.Row="1"
                      Grid.Column="1"
                      Margin="3"
@@ -83,6 +85,7 @@
                    HorizontalAlignment="Left" />
             <TextBox x:Name="emailTextBox"
                      Text="{Binding Email, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource ErrorStyle}"
                      Grid.Row="2"
                      Grid.Column="1"
                      Width="120"
@@ -98,6 +101,7 @@
                    HorizontalAlignment="Left" />
             <TextBox x:Name="phoneTextBox"
                      Text="{Binding Phone, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource ErrorStyle}"
                      Grid.Row="3"
                      Grid.Column="1"
                      Margin="3"

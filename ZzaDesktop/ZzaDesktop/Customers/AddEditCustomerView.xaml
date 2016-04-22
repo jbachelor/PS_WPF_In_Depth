@@ -13,8 +13,29 @@
         <conv:NegatableBooleanToVisibilityConverter x:Key="VisConverter" />
         <conv:NegatableBooleanToVisibilityConverter x:Key="NegVisConverter"
                                                     Negate="True" />
+        <ControlTemplate x:Key="TextBoxErrorTemplate">
+            <DockPanel>
+                <Ellipse DockPanel.Dock="Right"
+                         Margin="2,0"
+                         ToolTip="Invalid entry"
+                         Width="10"
+                         Height="10">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#11FF1111"
+                                          Offset="0" />
+                            <GradientStop Color="#FFFF0000"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <AdornedElementPlaceholder />
+            </DockPanel>
+        </ControlTemplate>
         <Style x:Key="ErrorStyle"
                TargetType="FrameworkElement">
+            <Setter Property="Validation.ErrorTemplate"
+                    Value="{StaticResource TextBoxErrorTemplate}" />
             <Style.Triggers>
                 <Trigger Property="Validation.HasError"
                          Value="true">

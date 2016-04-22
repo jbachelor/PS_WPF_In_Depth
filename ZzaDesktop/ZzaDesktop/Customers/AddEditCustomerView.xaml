@@ -13,7 +13,8 @@
         <conv:NegatableBooleanToVisibilityConverter x:Key="VisConverter" />
         <conv:NegatableBooleanToVisibilityConverter x:Key="NegVisConverter"
                                                     Negate="True" />
-        <Style TargetType="TextBox">
+        <Style x:Key="ErrorStyle"
+               TargetType="FrameworkElement">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError"
                          Value="true">

@@ -83,7 +83,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AtLeastNCharacterValidationRule.cs" />
+    <Compile Include="Validation\AtLeastNCharactersAttribute.cs" />
+    <Compile Include="Validation\AtLeastNCharacterValidationRule.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="ContainerHelper.cs" />
     <Compile Include="Converters\NegatableBooleanToVisibilityConverter.cs" />
@@ -91,7 +92,7 @@
       <DependentUpon>AddEditCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Customers\AddEditCustomerViewModel.cs" />
-    <Compile Include="AtMostNCharacterValidationRule.cs" />
+    <Compile Include="Validation\AtMostNCharacterValidationRule.cs" />
     <Compile Include="Customers\CustomerListView.xaml.cs">
       <DependentUpon>CustomerListView.xaml</DependentUpon>
     </Compile>

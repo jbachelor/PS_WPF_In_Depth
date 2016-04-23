@@ -3,7 +3,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ZzaDesktop.Customers"
-             xmlns:main="clr-namespace:ZzaDesktop"
+             xmlns:valid="clr-namespace:ZzaDesktop.Validation"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              x:Class="ZzaDesktop.Customers.CustomerListView"
@@ -50,8 +50,8 @@
                         <Binding Path="SearchInput"
                                  UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <main:AtLeastNCharacterValidationRule MinimumStringLength="2" />
-                                <main:AtMostNCharacterValidationRule MaximumStringLength="6" />
+                                <valid:AtLeastNCharacterValidationRule MinimumStringLength="2" />
+                                <valid:AtMostNCharacterValidationRule MaximumStringLength="6" />
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

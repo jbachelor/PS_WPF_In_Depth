@@ -6,21 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace ZzaDesktop
+namespace ZzaDesktop.Validation
 {
-    public class AtLeastNCharacterValidationRule : ValidationRule
+    public class AtMostNCharacterValidationRule : ValidationRule
     {
-        public int MinimumStringLength { get; set; }
+        public int MaximumStringLength { get; set; }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value.GetType() != typeof(string))
-                throw new ArgumentException("AtLeastNCharacterValidationRule is meant only to validate a string argument.");
-            
+                throw new ArgumentException("AtMostNCharacterValidationRule is meant only to validate a string argument.");
+
             string valueString = value.ToString();
 
-            if (valueString.Length < MinimumStringLength)
-                return new ValidationResult(false, $"Please enter at least {MinimumStringLength} characters");
+            if (valueString.Length > MaximumStringLength)
+                return new ValidationResult(false, $"Less than {MaximumStringLength} characters, please");
             else
                 return new ValidationResult(true, null);
         }

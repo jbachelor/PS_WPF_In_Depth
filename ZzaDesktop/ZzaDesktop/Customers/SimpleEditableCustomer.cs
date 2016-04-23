@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZzaDesktop.Validation;
 
 namespace ZzaDesktop.Customers
 {
@@ -17,7 +19,9 @@ namespace ZzaDesktop.Customers
         }
 
         private string firstName;
-        [Required(ErrorMessage = "First name is required")]
+        [Display(Name = "first name")]
+        [Required]
+        [AtLeastNCharacters(2)]
         public string FirstName
         {
             get { return firstName; }
@@ -26,6 +30,7 @@ namespace ZzaDesktop.Customers
 
         private string lastName;
         [Required(ErrorMessage = "Last name is required")]
+        [AtLeastNCharacters(2, "Sorry, I can't trust you without at least a two-letter last name")]
         public string LastName
         {
             get { return lastName; }

@@ -50,7 +50,8 @@
                         <Binding Path="SearchInput"
                                  UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <valid:AtLeastNCharacterValidationRule MinimumStringLength="2" />
+                                <valid:AtLeastNCharacterValidationRule MinimumStringLength="2"
+                                                                       ZeroCharactersIsValid="True" />
                                 <valid:AtMostNCharacterValidationRule MaximumStringLength="6" />
                             </Binding.ValidationRules>
                         </Binding>
